@@ -33,7 +33,7 @@ resource "aws_instance" "blog" {
   ami           = data.aws_ami.app_ami.id
   instance_type = var.instance_type
 
-  vpc_security_group_ids = [module.blog.security_group_id]
+  vpc_security_group_ids = [module.blog_sg.security_group_id]
 
   subnet_id = module.blog_vpc.public_subnets[0]
 
@@ -76,7 +76,7 @@ module "blog_alb" {
   }
 }
 
-module "blog" {
+module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "5.2.0"
   name    = "blog_new"
